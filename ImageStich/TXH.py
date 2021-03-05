@@ -51,18 +51,18 @@
 # root.mainloop()
 
 #2、textvarible
-import tkinter
-import time
-
-def gettime():
-    var.set(time.strftime("%H:%M:%S"))
-    root.after(1000,gettime)
-
-root = tkinter.Tk()
-root.title('时钟')
-var = tkinter.StringVar()
-
-lb = tkinter.Label(root,textvariable=var,fg='blue',font=('黑体',80))
-lb.pack()
-gettime()
-root.mainloop()
+# import tkinter
+# import time
+#
+# def gettime():
+#     var.set(time.strftime("%H:%M:%S"))
+#     root.after(1000,gettime)
+#
+# root = tkinter.Tk()
+# root.title('时钟')
+# var = tkinter.StringVar()
+#
+# lb = tkinter.Label(root,textvariable=var,fg='blue',font=('黑体',80))
+# lb.pack()
+# gettime()
+# root.mainloop()
