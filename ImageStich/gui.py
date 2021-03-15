@@ -41,6 +41,24 @@ def choosepic2():
     lb2.image = img
 
 
+# 标签
+def labelShow():
+    # 灰度图
+    lb3 = tkinter.Label(canvas, text='灰度图', bg='white', fg='Blue3', font=('黑体', 13))
+    lb3.place(relx=0.6, rely=0.03)
+    # 特征点图
+    lb4 = tkinter.Label(canvas, text='特征点图', bg='white', fg='Blue3', font=('黑体', 13))
+    lb4.place(relx=0.815, rely=0.03)
+    # 匹配图
+    lb5 = tkinter.Label(canvas, text='匹配线', bg='white', fg='Blue3', font=('黑体', 13))
+    lb5.place(relx=0.15, rely=0.65)
+    # 连接图
+    lb6 = tkinter.Label(canvas, text='拼接图', bg='white', fg='Blue3', font=('黑体', 13))
+    lb6.place(relx=0.45, rely=0.65)
+    # 结果图
+    lb7 = tkinter.Label(canvas, text='结果图', bg='white', fg='Blue3', font=('黑体', 13))
+    lb7.place(relx=0.78, rely=0.65)
+
 # 展示结果图
 def showresult():
     global gray1
@@ -76,8 +94,8 @@ def resultimg():
 
 root = tkinter.Tk()
 root.title('图像拼接')
-root.geometry('1200x1024')
-canvas = tkinter.Canvas(root, bg='white', height=1000, width=1500)
+root.geometry('1100x1000')
+canvas = tkinter.Canvas(root, bg='white', height=1000, width=1100)
 
 lb1 = tkinter.Label(canvas)
 lb2 = tkinter.Label(canvas)
@@ -102,25 +120,7 @@ btn5 = tkinter.Button(canvas, text='结  果', bg='lavender', fg='blue',
                       font=('黑体', 13), command=resultimg)
 btn5.place(relx=0.48, rely=0.55, relwidth=0.1, relheight=0.05)
 
-# 灰度图
-lb3 = tkinter.Label(canvas, text='灰度图', bg='white', fg='Blue3', font=('黑体', 13))
-lb3.place(relx=0.6, rely=0.03)
-
-# 特征点图
-lb4 = tkinter.Label(canvas, text='特征点图', bg='white', fg='Blue3', font=('黑体', 13))
-lb4.place(relx=0.815, rely=0.03)
-
-# 连线图
-lb5 = tkinter.Label(canvas, text='连接线', bg='white', fg='Blue3', font=('黑体', 13))
-lb5.place(relx=0.15, rely=0.65)
-
-# 连接图
-lb6 = tkinter.Label(canvas, text='连接图', bg='white', fg='Blue3', font=('黑体', 13))
-lb6.place(relx=0.45, rely=0.65)
-
-# 结果图
-lb7 = tkinter.Label(canvas, text='结果图', bg='white', fg='Blue3', font=('黑体', 13))
-lb7.place(relx=0.78, rely=0.65)
+labelShow()
 
 canvas.pack()
 root.mainloop()

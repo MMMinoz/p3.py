@@ -50,7 +50,7 @@
 # root.mainloop()
 
 
-# 2、textvarible
+# 2、textvariable
 # import tkinter
 # import time
 #
@@ -503,31 +503,32 @@
 # root.mainloop()
 
 
-# #事件响应
-# import tkinter
-#
-#
-# def keyboard(event):
-#     s = event.keysym
-#     lb1.config(text=s)
-#
-# def mouse(event):
-#     s='鼠标在(%s,%s)位置' % (event.x, event.y)
-#     lb2.config(text=s)
-#
-#
-# root = tkinter.Tk()
-# root.title('事件响应')
-# root.geometry('500x500')
-#
-# lb1 = tkinter.Label(root, text='请按键', font=('黑体',30))
-# lb1.bind('<Key>',keyboard)
-# #接受键盘事件，只有组件获取焦点才能接受键盘事件
-# lb1.focus_set()#获取焦点
-# lb1.pack()
-#
-# lb2 = tkinter.Label(root, text='请移动鼠标', font=('黑体', 30))
-# root.bind('<Motion>',mouse)
-# lb2.pack()
-#
-# root.mainloop()
+#事件响应
+import tkinter
+
+
+def keyboard(event):
+    s = event.keysym
+    lb1.config(text=s)
+
+
+def mouse(event):
+    s = '鼠标在(%s,%s)位置' % (event.x, event.y)
+    lb2.config(text=s)
+
+
+root = tkinter.Tk()
+root.title('事件响应')
+root.geometry('500x500')
+
+lb1 = tkinter.Label(root, text='请按键', font=('黑体',30))
+lb1.bind('<Key>',keyboard)
+#接受键盘事件，只有组件获取焦点才能接受键盘事件
+lb1.focus_set()#获取焦点
+lb1.pack()
+
+lb2 = tkinter.Label(root, text='请移动鼠标', font=('黑体', 30))
+root.bind('<Motion>',mouse)
+lb2.pack()
+
+root.mainloop()

@@ -10,8 +10,8 @@ class Stitcher:
         (imageB, imageA) = images
         # 检测A、B图片的SIFT关键特征点，并计算特征描述子
         # 关键点 特征点
-        (kpsA, featuresA) = self.detect_describe(imageA)
-        (kpsB, featuresB) = self.detect_describe(imageB)
+        (kpsB, featuresB) = self.detect_describe(imageB, 1)
+        (kpsA, featuresA) = self.detect_describe(imageA, 2)
 
         # 匹配两张图片的所有特征点，返回匹配结果
         M = self.match_keypoints(kpsA, kpsB, featuresA, featuresB, ratio, reprojThresh)
@@ -28,15 +28,17 @@ class Stitcher:
         # H：透视变换的矩阵
         # shape，大小
         result = cv2.warpPerspective(imageA, H, (imageA.shape[1] + imageB.shape[1], imageA.shape[0]))
-        self.cv_show('result', result)
+        # self.cv_show('result', result)
+        cv2.imwrite('rresult.png', result)
         # 将图片B传入result图片最左端
         result[0:imageB.shape[0], 0:imageB.shape[1]] = imageB
-        self.cv_show('result', result)
+        # self.cv_show('result', result)
+        cv2.imwrite('result.png', result)
+
 
         # vis是连线匹配图 result是结果图
         vis = self.draw_matches(imageA, imageB, kpsA, kpsB, matches, status)
-        # 返回结果
-        return result, vis
+        cv2.imwrite('vis.png', vis)
 
     # 显示图片
     def cv_show(self, name, img):
@@ -44,14 +46,31 @@ class Stitcher:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    # sift特征值匹配绘制
-    def detect_describe(self, image):
-        # 将彩色图片转换成灰度图
+    # 显示灰度图
+    def cv_gray(self, image, index):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        # 显示灰度图
-        cv2.imshow('gray', gray)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.imshow('gray', gray)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        name = 'gray' + str(index) + '.png'
+        cv2.imwrite(name, gray)
+        return gray
+
+
+    def draw(self, gray, kps, index):
+        # 绘制特征点
+        sift_img = cv2.drawKeypoints(gray, kps, gray)
+        # cv2.imshow('img', sift_img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        name = 'sift' + str(index) + '.png'
+        cv2.imwrite(name, sift_img)
+        return sift_img
+
+    # sift特征值匹配绘制
+    def detect_describe(self, image, index):
+        # 将彩色图片转换成灰度图
+        gray = self.cv_gray(image, index)
         # 建立SIFT生成器
         descriptor = cv2.xfeatures2d.SIFT_create()
 
@@ -66,10 +85,7 @@ class Stitcher:
         (kps, features) = descriptor.detectAndCompute(image, None)
 
         # 绘制特征点
-        sift_img = cv2.drawKeypoints(gray, kps, gray)
-        cv2.imshow('img', sift_img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        self.draw(gray, kps, index)
 
         # 将结果转换成NumPy数组, pt是元组 tuple 指关键点的坐标
         kps = np.float32([kp.pt for kp in kps])
